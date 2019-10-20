@@ -16,4 +16,16 @@ class UserService(val userRepository: UserRepository) {
         return user.name
     }
 
+    fun edit(reqEditDto: ReqEditDto) {
+        val user = userRepository.findByUserId(reqEditDto.userId)
+                .orElseThrow { RuntimeException() }
+        reqEditDto.nameToChange?.let {
+            user.name = it
+        }
+        reqEditDto.passwordToChange?.let {
+            user.password = it
+        }
+        userRepository.save(user)
+    }
+
 }
