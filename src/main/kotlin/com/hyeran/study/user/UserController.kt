@@ -2,10 +2,7 @@ package com.hyeran.study.user
 
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.DeleteMapping
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 class UserController(val userService: UserService) {
@@ -32,5 +29,10 @@ class UserController(val userService: UserService) {
     fun delete(@RequestBody reqDeleteDto: ReqDeleteDto): ResponseEntity<String> {
         userService.delete(reqDeleteDto)
         return ResponseEntity.status(HttpStatus.OK).body("회원탈퇴 성공")
+    }
+
+    @GetMapping("/user-list")
+    fun getUserList(): ResponseEntity<List<ResUserListDto>> {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.getUserList())
     }
 }

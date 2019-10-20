@@ -2,6 +2,10 @@ package com.hyeran.study.user
 
 import org.springframework.stereotype.Service
 import java.lang.RuntimeException
+import javax.persistence.NoResultException
+import java.util.stream.Collectors
+
+
 
 @Service
 class UserService(val userRepository: UserRepository) {
@@ -34,4 +38,10 @@ class UserService(val userRepository: UserRepository) {
         userRepository.delete(user)
     }
 
+    fun getUserList() : List<ResUserListDto> {
+        return userRepository.findAll()
+                .stream()
+                .map { user: User -> ResUserListDto(user.userId, user.name) }
+                .collect(Collectors.toList())
+    }
 }
