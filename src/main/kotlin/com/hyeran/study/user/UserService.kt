@@ -2,9 +2,8 @@ package com.hyeran.study.user
 
 import org.springframework.stereotype.Service
 import java.lang.RuntimeException
-import javax.persistence.NoResultException
 import java.util.stream.Collectors
-
+import javax.transaction.Transactional
 
 
 @Service
@@ -20,6 +19,7 @@ class UserService(val userRepository: UserRepository) {
         return user.name
     }
 
+    @Transactional
     fun edit(reqEditDto: ReqEditDto) {
         val user = userRepository.findByUserId(reqEditDto.userId)
                 .orElseThrow { RuntimeException() }
@@ -32,6 +32,7 @@ class UserService(val userRepository: UserRepository) {
         userRepository.save(user)
     }
 
+    @Transactional
     fun delete(reqDeleteDto: ReqDeleteDto) {
         val user = userRepository.findByUserIdAndPassword(reqDeleteDto.userId, reqDeleteDto.password)
                 .orElseThrow { RuntimeException() }
