@@ -14,4 +14,10 @@ class UserController(val userService: UserService) {
         userService.signUp(reqSignUpDto)
         return ResponseEntity.status(HttpStatus.OK).body("회원가입 성공")
     }
+
+    @PostMapping("/sign-in")
+    fun signIn(@RequestBody reqSignInDto: ReqSignInDto): ResponseEntity<String> {
+        val name: String = userService.signIn(reqSignInDto)
+        return ResponseEntity.status(HttpStatus.OK).body("${name}님 로그인 성공")
+    }
 }
