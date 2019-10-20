@@ -28,4 +28,10 @@ class UserService(val userRepository: UserRepository) {
         userRepository.save(user)
     }
 
+    fun delete(reqDeleteDto: ReqDeleteDto) {
+        val user = userRepository.findByUserIdAndPassword(reqDeleteDto.userId, reqDeleteDto.password)
+                .orElseThrow { RuntimeException() }
+        userRepository.delete(user)
+    }
+
 }
