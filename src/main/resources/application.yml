@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    url: jdbc:mysql://${MYSQL_URL}?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    username: ${USER_NAME}
+    password: ${USER_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5Dialect  # DB 방언을 JPA가 알아서 처리할 수 있도록
+    show-sql: true  # 성능 저하를 일으키므로 운영 환경에서는 쓰지 않음
+    generate-ddl: true  # 테스트 데이터 넣을 수 있음
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+      # create는 DB 테이블이 없으면 알아서 만들어줌 → 최초에만 쓰거나 개발 환경에서만 사용
+      # 운영 환경에서는 데이터가 다 날아갈 수 있기 때문에 validate로 검증만
+    properties:
+      hibernate:
+        format_sql: true  # 성능 저하를 일으키므로 운영 환경에서는 쓰지 않음
