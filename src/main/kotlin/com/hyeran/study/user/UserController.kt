@@ -19,7 +19,7 @@ class UserController(val userService: UserService) {
         return ResponseEntity.status(HttpStatus.OK).body("${name}님 로그인 성공")
     }
 
-    @PutMapping("/edit/{id}")
+    @PatchMapping("/edit/{id}")
     fun edit(@PathVariable id: Long, @RequestBody reqEditDto: ReqEditDto): ResponseEntity<String> {
         userService.edit(id, reqEditDto)
         return ResponseEntity.status(HttpStatus.OK).body("회원정보 수정 성공")
