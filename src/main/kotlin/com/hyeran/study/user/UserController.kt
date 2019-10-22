@@ -19,15 +19,15 @@ class UserController(val userService: UserService) {
         return ResponseEntity.status(HttpStatus.OK).body("${name}님 로그인 성공")
     }
 
-    @PutMapping("/edit")
-    fun edit(@RequestBody reqEditDto: ReqEditDto): ResponseEntity<String> {
-        userService.edit(reqEditDto)
+    @PutMapping("/edit/{id}")
+    fun edit(@PathVariable id: Long, @RequestBody reqEditDto: ReqEditDto): ResponseEntity<String> {
+        userService.edit(id, reqEditDto)
         return ResponseEntity.status(HttpStatus.OK).body("회원정보 수정 성공")
     }
 
-    @DeleteMapping("/delete")
-    fun delete(@RequestBody reqDeleteDto: ReqDeleteDto): ResponseEntity<String> {
-        userService.delete(reqDeleteDto)
+    @DeleteMapping("/delete/{id}")
+    fun delete(@PathVariable id: Long): ResponseEntity<String> {
+        userService.delete(id)
         return ResponseEntity.status(HttpStatus.OK).body("회원탈퇴 성공")
     }
 

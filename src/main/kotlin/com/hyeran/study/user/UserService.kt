@@ -20,21 +20,20 @@ class UserService(val userRepository: UserRepository) {
     }
 
     @Transactional
-    fun edit(reqEditDto: ReqEditDto) {
-        val user = userRepository.findByUserId(reqEditDto.userId)
+    fun edit(id: Long, reqEditDto: ReqEditDto) {
+        val user = userRepository.findById(id)
                 .orElseThrow { RuntimeException() }
-        reqEditDto.nameToChange?.let {
+        reqEditDto.name?.let {
             user.name = it
         }
-        reqEditDto.passwordToChange?.let {
+        reqEditDto.password?.let {
             user.password = it
         }
-        userRepository.save(user)
     }
 
     @Transactional
-    fun delete(reqDeleteDto: ReqDeleteDto) {
-        val user = userRepository.findByUserIdAndPassword(reqDeleteDto.userId, reqDeleteDto.password)
+    fun delete(id: Long) {
+        val user = userRepository.findById(id)
                 .orElseThrow { RuntimeException() }
         userRepository.delete(user)
     }
@@ -42,7 +41,7 @@ class UserService(val userRepository: UserRepository) {
     fun getUserList() : List<ResUserListDto> {
         return userRepository.findAll()
                 .stream()
-                .map { user: User -> ResUserListDto(user.userId, user.name) }
+                .map { user: User -> ResUserListDto(user.id!!, user.userId, user.name) }
                 .collect(Collectors.toList())
     }
 }
