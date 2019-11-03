@@ -19,9 +19,4 @@ class UserController(val userService: UserService, val userRepository: UserRepos
     fun signIn(@RequestBody reqSignInDto: ReqSignInDto): ResponseEntity<String> {
         return ResponseEntity.status(HttpStatus.OK).body("로그인 성공 (id=${userService.signIn(reqSignInDto)})")
     }
-
-    @GetMapping("/{id}")
-    fun test(@PathVariable id: Long): MutableList<Post>? {
-        return userRepository.findById(id).orElseThrow { RuntimeException() }.posts
-    }
 }
