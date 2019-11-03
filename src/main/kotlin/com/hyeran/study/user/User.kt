@@ -1,6 +1,7 @@
 package com.hyeran.study.user
 
 import com.hyeran.study.BaseTimeEntity
+import com.hyeran.study.comment.Comment
 import com.hyeran.study.post.Post
 import javax.persistence.*
 
@@ -11,5 +12,5 @@ class User(@Id @GeneratedValue(strategy = GenerationType.IDENTITY) var id: Long?
            var password: String,
            var name: String,
            var age: Int,
-           @OneToMany(mappedBy = "user") var posts: MutableList<Post>? = null) : BaseTimeEntity() {
-}
+           @OneToMany(mappedBy = "user") var posts: MutableList<Post>? = null,
+           @OneToMany(mappedBy = "user") var comments: MutableList<Comment>? = null) : BaseTimeEntity()

@@ -1,6 +1,7 @@
 package com.hyeran.study.post
 
 import com.hyeran.study.BaseTimeEntity
+import com.hyeran.study.comment.Comment
 import com.hyeran.study.user.User
 import javax.persistence.*
 
@@ -12,5 +13,5 @@ class Post(@Id @GeneratedValue(strategy = GenerationType.IDENTITY) var id: Long?
            var writer: String,
            var likeCnt: Long = 0,
            var dislikeCnt: Long = 0,
-           @ManyToOne @JoinColumn(name = "userId") var user: User) : BaseTimeEntity() {
-}
+           @ManyToOne @JoinColumn(name = "userId") var user: User,
+           @OneToMany(mappedBy = "post") var comments: MutableList<Comment>? = null) : BaseTimeEntity()

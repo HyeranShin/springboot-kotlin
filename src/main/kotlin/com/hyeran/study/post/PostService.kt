@@ -25,7 +25,7 @@ class PostService(val postRepository: PostRepository, val userRepository: UserRe
         val post = postRepository.findById(postId)
                 .orElseThrow { RuntimeException() }
         if(post.user.id == userId) {
-            postRepository.deleteById(postId)
+            postRepository.delete(post)
         }
         else {
             RuntimeException()
