@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/post")
 class PostController(val postService: PostService) {
 
-    @GetMapping("/list/{userId}")
+    @GetMapping("/all-list/{userId}")
     fun getPostList(@PathVariable userId: Long): ResponseEntity<MutableList<ResListDto>> {
         return ResponseEntity.status(HttpStatus.OK).body(postService.getPostList())
     }
@@ -23,5 +23,10 @@ class PostController(val postService: PostService) {
     fun deletePost(@PathVariable userId: Long, @PathVariable postId: Long): ResponseEntity<String> {
         postService.deletePost(userId, postId)
         return ResponseEntity.status(HttpStatus.OK).body("게시글 삭제 완료")
+    }
+
+    @GetMapping("/my-posts/{userId}")
+    fun getMyPosts(@PathVariable userId: Long): ResponseEntity<MutableList<ResMyPostsDto>> {
+        return ResponseEntity.status(HttpStatus.OK).body(postService.getMyPosts(userId))
     }
 }

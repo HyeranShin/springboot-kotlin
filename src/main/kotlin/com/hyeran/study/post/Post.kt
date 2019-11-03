@@ -13,5 +13,5 @@ class Post(@Id @GeneratedValue(strategy = GenerationType.IDENTITY) var id: Long?
            var writer: String,
            var likeCnt: Long = 0,
            var dislikeCnt: Long = 0,
-           @ManyToOne @JoinColumn(name = "userId") var user: User,
+           @ManyToOne(cascade = [CascadeType.ALL]) @JoinColumn(name = "userId") var user: User,
            @OneToMany(mappedBy = "post") var comments: MutableList<Comment>? = null) : BaseTimeEntity()

@@ -4,6 +4,7 @@ import com.hyeran.study.post.Post
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.lang.RuntimeException
+import java.util.stream.Collectors
 
 @Service
 class UserService(val userRepository: UserRepository) {
@@ -16,10 +17,5 @@ class UserService(val userRepository: UserRepository) {
     fun signIn(reqSignInDto: ReqSignInDto): Long {
         return userRepository.findByUserIdAndPassword(reqSignInDto.userId, reqSignInDto.password)
                 .orElseThrow { RuntimeException() }.id!!
-    }
-
-    @Transactional
-    fun test(id: Long): MutableList<Post>? {
-        return userRepository.findById(id).orElseThrow { RuntimeException() }.posts
     }
 }

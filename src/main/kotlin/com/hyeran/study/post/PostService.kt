@@ -20,7 +20,8 @@ class PostService(val postRepository: PostRepository, val userRepository: UserRe
     fun writePost(userId: Long, reqWriteDto: ReqWriteDto): Long {
         val user = userRepository.findById(userId)
                 .orElseThrow { RuntimeException() }
-        return postRepository.save(Post(title = reqWriteDto.title, content = reqWriteDto.content, writer = user.name, user = user)).id!!
+        val post = Post(title = reqWriteDto.title, content = reqWriteDto.content, writer = user.name, user = user)
+        return postRepository.save(post).id!!
     }
 
     @Transactional
@@ -33,5 +34,12 @@ class PostService(val postRepository: PostRepository, val userRepository: UserRe
         else {
             RuntimeException()
         }
+    }
+
+    fun getMyPosts(userId: Long): MutableList<ResMyPostsDto>? {
+        return userRepository.findById(userId).orElseThrow { RuntimeException() }.posts!!
+                .stream()
+                .map { post: Post ->  ResMyPostsDto(post.id!!, post.title, post.content, post.likeCnt, post.dislikeCnt) }
+                .collect(Collectors.toList())
     }
 }
