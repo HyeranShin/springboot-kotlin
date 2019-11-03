@@ -4,6 +4,7 @@ import com.hyeran.study.user.UserRepository
 import org.springframework.stereotype.Service
 import java.lang.RuntimeException
 import java.util.stream.Collectors
+import javax.transaction.Transactional
 
 @Service
 class PostService(val postRepository: PostRepository, val userRepository: UserRepository) {
@@ -15,12 +16,14 @@ class PostService(val postRepository: PostRepository, val userRepository: UserRe
                 .collect(Collectors.toList())
     }
 
+    @Transactional
     fun writePost(userId: Long, reqWriteDto: ReqWriteDto): Long {
         val user = userRepository.findById(userId)
                 .orElseThrow { RuntimeException() }
         return postRepository.save(Post(title = reqWriteDto.title, content = reqWriteDto.content, writer = user.name, user = user)).id!!
     }
 
+    @Transactional
     fun deletePost(userId: Long, postId: Long) {
         val post = postRepository.findById(postId)
                 .orElseThrow { RuntimeException() }

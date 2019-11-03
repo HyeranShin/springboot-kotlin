@@ -12,5 +12,5 @@ class User(@Id @GeneratedValue(strategy = GenerationType.IDENTITY) var id: Long?
            var password: String,
            var name: String,
            var age: Int,
-           @OneToMany(mappedBy = "user") var posts: MutableList<Post>? = null,
+           @OneToMany(mappedBy = "user", fetch = FetchType.LAZY) var posts: MutableList<Post>? = null,
            @OneToMany(mappedBy = "user") var comments: MutableList<Comment>? = null) : BaseTimeEntity()

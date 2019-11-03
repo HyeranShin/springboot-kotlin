@@ -4,10 +4,12 @@ import com.hyeran.study.post.PostRepository
 import com.hyeran.study.user.UserRepository
 import org.springframework.stereotype.Service
 import java.lang.RuntimeException
+import javax.transaction.Transactional
 
 @Service
 class CommentService(val commentRepository: CommentRepository, val userRepository: UserRepository, val postRepository: PostRepository) {
 
+    @Transactional
     fun writeComment(userId: Long, postId: Long, reqWriteDto: ReqWriteDto): Long {
         val user = userRepository.findById(userId)
                 .orElseThrow { RuntimeException() }
@@ -15,6 +17,7 @@ class CommentService(val commentRepository: CommentRepository, val userRepositor
                 post = postRepository.findById(postId).orElseThrow { RuntimeException() })).id!!
     }
 
+    @Transactional
     fun deleteComment(userId: Long, postId: Long, commentId: Long) {
         val comment = commentRepository.findById(commentId)
                 .orElseThrow { RuntimeException() }

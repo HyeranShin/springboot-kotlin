@@ -4,7 +4,6 @@ import com.hyeran.study.post.Post
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import java.lang.RuntimeException
 
 @RestController
 @RequestMapping("/user")
@@ -18,5 +17,10 @@ class UserController(val userService: UserService, val userRepository: UserRepos
     @PostMapping("/sign-in")
     fun signIn(@RequestBody reqSignInDto: ReqSignInDto): ResponseEntity<String> {
         return ResponseEntity.status(HttpStatus.OK).body("로그인 성공 (id=${userService.signIn(reqSignInDto)})")
+    }
+
+    @GetMapping("/test/{id}")
+    fun test(@PathVariable id: Long): MutableList<Post>? {
+        return userService.test(id)
     }
 }
