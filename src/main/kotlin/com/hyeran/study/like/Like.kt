@@ -9,5 +9,5 @@ import javax.persistence.*
 @Table(name = "likes_hyeran")
 class Like(@Id @GeneratedValue(strategy = GenerationType.IDENTITY) var id: Long? = null,
            var type: Type,
-           @ManyToOne @JoinColumn(name = "userId") var user: User,
-           @ManyToOne @JoinColumn(name = "postId") var post: Post) : BaseTimeEntity()
+           var userId: Long,
+           var postId: Long) : BaseTimeEntity()

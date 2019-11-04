@@ -1,31 +1,19 @@
 package com.hyeran.study.comment
 
-import com.hyeran.study.post.PostRepository
-import com.hyeran.study.user.UserRepository
 import org.springframework.stereotype.Service
 import java.lang.RuntimeException
-import javax.transaction.Transactional
 
 @Service
-class CommentService(val commentRepository: CommentRepository, val userRepository: UserRepository, val postRepository: PostRepository) {
+class CommentService(val commentRepository: CommentRepository) {
 
-    @Transactional
-    fun writeComment(userId: Long, postId: Long, reqWriteDto: ReqWriteDto): Long {
-        val user = userRepository.findById(userId)
-                .orElseThrow { RuntimeException() }
-        return commentRepository.save(Comment(content = reqWriteDto.content, writer = user.name, user = user,
-                post = postRepository.findById(postId).orElseThrow { RuntimeException() })).id!!
+    fun writeComment(reqWriteDto: ReqWriteDto): Long {
+        val comment = Comment(content = reqWriteDto.content, writer = reqWriteDto.writer, userId = reqWriteDto.userId, postId = reqWriteDto.postId)
+        return commentRepository.save(comment).id!!
     }
 
-    @Transactional
-    fun deleteComment(userId: Long, postId: Long, commentId: Long) {
+    fun deleteComment(commentId: Long) {
         val comment = commentRepository.findById(commentId)
                 .orElseThrow { RuntimeException() }
-        if(comment.user.id == userId && comment.post.id == postId) {
-            commentRepository.delete(comment)
-        }
-        else {
-            RuntimeException()
-        }
+        commentRepository.delete(comment)
     }
 }

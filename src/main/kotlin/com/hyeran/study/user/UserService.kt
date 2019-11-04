@@ -1,10 +1,7 @@
 package com.hyeran.study.user
 
-import com.hyeran.study.post.Post
 import org.springframework.stereotype.Service
-import org.springframework.transaction.annotation.Transactional
 import java.lang.RuntimeException
-import java.util.stream.Collectors
 
 @Service
 class UserService(val userRepository: UserRepository) {

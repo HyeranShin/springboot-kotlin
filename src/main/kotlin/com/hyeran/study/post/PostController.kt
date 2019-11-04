@@ -5,28 +5,23 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/post")
+@RequestMapping("/posts")
 class PostController(val postService: PostService) {
 
-    @GetMapping("/all-list/{userId}")
-    fun getPostList(@PathVariable userId: Long): ResponseEntity<MutableList<ResListDto>> {
-        return ResponseEntity.status(HttpStatus.OK).body(postService.getPostList())
+    @GetMapping("")
+    fun getAllPosts(): ResponseEntity<MutableList<ResAllPostsDto>> {
+        return ResponseEntity.status(HttpStatus.OK).body(postService.getAllPosts())
     }
 
-    @PostMapping("/write/{userId}")
-    fun writePost(@PathVariable userId: Long, @RequestBody reqWriteDto: ReqWriteDto): ResponseEntity<String> {
-        val postId = postService.writePost(userId, reqWriteDto)
+    @PostMapping("")
+    fun writePost( @RequestBody reqWriteDto: ReqWriteDto): ResponseEntity<String> {
+        val postId = postService.writePost(reqWriteDto)
         return ResponseEntity.status(HttpStatus.CREATED).body("게시글 작성 성공 (id=$postId)")
     }
 
-    @DeleteMapping("/delete/{userId}/{postId}")
-    fun deletePost(@PathVariable userId: Long, @PathVariable postId: Long): ResponseEntity<String> {
-        postService.deletePost(userId, postId)
+    @DeleteMapping("/{postId}")
+    fun deletePost(@PathVariable postId: Long): ResponseEntity<String> {
+        postService.deletePost(postId)
         return ResponseEntity.status(HttpStatus.OK).body("게시글 삭제 완료")
-    }
-
-    @GetMapping("/my-posts/{userId}")
-    fun getMyPosts(@PathVariable userId: Long): ResponseEntity<MutableList<ResMyPostsDto>> {
-        return ResponseEntity.status(HttpStatus.OK).body(postService.getMyPosts(userId))
     }
 }

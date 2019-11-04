@@ -2,6 +2,7 @@ package com.hyeran.study.post
 
 import com.hyeran.study.BaseTimeEntity
 import com.hyeran.study.comment.Comment
+import com.hyeran.study.like.LikeRepository
 import com.hyeran.study.user.User
 import javax.persistence.*
 
@@ -13,5 +14,21 @@ class Post(@Id @GeneratedValue(strategy = GenerationType.IDENTITY) var id: Long?
            var writer: String,
            var likeCnt: Long = 0,
            var dislikeCnt: Long = 0,
-           @ManyToOne(cascade = [CascadeType.ALL]) @JoinColumn(name = "userId") var user: User,
-           @OneToMany(mappedBy = "post") var comments: MutableList<Comment>? = null) : BaseTimeEntity()
+           var userId: Long) : BaseTimeEntity() {
+
+    fun increaseLikeCnt() {
+        this.likeCnt++
+    }
+
+    fun decreaseLikeCnt() {
+        this.likeCnt--
+    }
+
+    fun increaseDislikeCnt() {
+        this.dislikeCnt++
+    }
+
+    fun decreaseDislikeCnt() {
+        this.dislikeCnt--
+    }
+}
