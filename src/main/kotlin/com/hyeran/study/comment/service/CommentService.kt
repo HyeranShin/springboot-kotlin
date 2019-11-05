@@ -1,5 +1,8 @@
-package com.hyeran.study.comment
+package com.hyeran.study.comment.service
 
+import com.hyeran.study.comment.domain.Comment
+import com.hyeran.study.comment.domain.CommentRepository
+import com.hyeran.study.comment.dto.ReqWriteDto
 import org.springframework.stereotype.Service
 import java.lang.RuntimeException
 

@@ -1,4 +1,4 @@
-package com.hyeran.study.comment
+package com.hyeran.study.comment.domain
 
 import org.springframework.data.jpa.repository.JpaRepository
 

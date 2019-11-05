@@ -1,4 +1,4 @@
-package com.hyeran.study.like
+package com.hyeran.study.like.domain
 
 import org.springframework.data.jpa.repository.JpaRepository
 import java.util.*

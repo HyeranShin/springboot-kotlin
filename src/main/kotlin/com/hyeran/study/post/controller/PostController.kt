@@ -1,5 +1,8 @@
-package com.hyeran.study.post
+package com.hyeran.study.post.controller
 
+import com.hyeran.study.post.service.PostService
+import com.hyeran.study.post.dto.ReqWriteDto
+import com.hyeran.study.post.dto.ResAllPostsDto
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*

@@ -1,4 +1,4 @@
-package com.hyeran.study.user
+package com.hyeran.study.user.domain
 
 import com.hyeran.study.BaseTimeEntity
 import javax.persistence.*

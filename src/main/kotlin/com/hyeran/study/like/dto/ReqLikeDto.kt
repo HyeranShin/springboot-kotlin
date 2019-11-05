@@ -1,4 +1,6 @@
-package com.hyeran.study.like
+package com.hyeran.study.like.dto
+
+import com.hyeran.study.like.domain.Type
 
 data class ReqLikeDto(
         val userId: Long,

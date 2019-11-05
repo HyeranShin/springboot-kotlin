@@ -1,6 +1,10 @@
-package com.hyeran.study.like
+package com.hyeran.study.like.service
 
-import com.hyeran.study.post.PostRepository
+import com.hyeran.study.like.dto.ReqLikeDto
+import com.hyeran.study.like.domain.Type
+import com.hyeran.study.like.domain.Like
+import com.hyeran.study.like.domain.LikeRepository
+import com.hyeran.study.post.domain.PostRepository
 import org.springframework.stereotype.Service
 import java.lang.RuntimeException
 import javax.transaction.Transactional

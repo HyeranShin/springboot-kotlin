@@ -1,4 +1,4 @@
-package com.hyeran.study.comment
+package com.hyeran.study.comment.dto
 
 data class ReqWriteDto(
         val userId: Long,

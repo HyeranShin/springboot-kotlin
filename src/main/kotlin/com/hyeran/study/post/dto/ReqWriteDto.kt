@@ -1,4 +1,4 @@
-package com.hyeran.study.post
+package com.hyeran.study.post.dto
 
 data class ReqWriteDto(
         val userId: Long,

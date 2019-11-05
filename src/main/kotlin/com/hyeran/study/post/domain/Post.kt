@@ -1,9 +1,6 @@
-package com.hyeran.study.post
+package com.hyeran.study.post.domain
 
 import com.hyeran.study.BaseTimeEntity
-import com.hyeran.study.comment.Comment
-import com.hyeran.study.like.LikeRepository
-import com.hyeran.study.user.User
 import javax.persistence.*
 
 @Entity

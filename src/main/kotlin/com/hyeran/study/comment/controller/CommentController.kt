@@ -1,5 +1,7 @@
-package com.hyeran.study.comment
+package com.hyeran.study.comment.controller
 
+import com.hyeran.study.comment.dto.ReqWriteDto
+import com.hyeran.study.comment.service.CommentService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*

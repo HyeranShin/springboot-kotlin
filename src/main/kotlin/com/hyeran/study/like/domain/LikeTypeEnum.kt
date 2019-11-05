@@ -1,4 +1,4 @@
-package com.hyeran.study.like
+package com.hyeran.study.like.domain
 
 enum class Type {
     LIKE, DISLIKE

@@ -1,5 +1,9 @@
-package com.hyeran.study.user
+package com.hyeran.study.user.service
 
+import com.hyeran.study.user.domain.User
+import com.hyeran.study.user.domain.UserRepository
+import com.hyeran.study.user.dto.ReqSignInDto
+import com.hyeran.study.user.dto.ReqSignUpDto
 import org.springframework.stereotype.Service
 import java.lang.RuntimeException
 

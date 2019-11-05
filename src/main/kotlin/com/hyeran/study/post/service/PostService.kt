@@ -1,6 +1,10 @@
-package com.hyeran.study.post
+package com.hyeran.study.post.service
 
-import com.hyeran.study.user.UserRepository
+import com.hyeran.study.post.dto.ReqWriteDto
+import com.hyeran.study.post.dto.ResAllPostsDto
+import com.hyeran.study.post.domain.Post
+import com.hyeran.study.post.domain.PostRepository
+import com.hyeran.study.user.domain.UserRepository
 import org.springframework.stereotype.Service
 import java.lang.RuntimeException
 import java.util.stream.Collectors
