@@ -18,4 +18,8 @@ class Like private constructor(id: Long?, type: Type, userId: Long, postId: Long
         private set
 
     constructor(type: Type, userId: Long, postId: Long) : this(null, type, userId, postId)
+
+    fun isLike(): Boolean = this.type == Type.LIKE
+
+    fun isDislike(): Boolean = this.type == Type.DISLIKE
 }
