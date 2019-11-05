@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/comments")
 class CommentController(val commentService: CommentService) {
 
-    @PostMapping("")
+    @PostMapping
     fun writeComment(@RequestBody reqWriteDto: ReqWriteDto): ResponseEntity<String> {
         return ResponseEntity.status(HttpStatus.CREATED).body("댓글 작성 성공 (id=${commentService.writeComment(reqWriteDto)})")
     }

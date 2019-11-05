@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/posts")
 class PostController(val postService: PostService) {
 
-    @GetMapping("")
+    @GetMapping
     fun getAllPosts(): ResponseEntity<MutableList<ResAllPostsDto>> {
         return ResponseEntity.status(HttpStatus.OK).body(postService.getAllPosts())
     }
 
-    @PostMapping("")
+    @PostMapping
     fun writePost( @RequestBody reqWriteDto: ReqWriteDto): ResponseEntity<String> {
         val postId = postService.writePost(reqWriteDto)
         return ResponseEntity.status(HttpStatus.CREATED).body("게시글 작성 성공 (id=$postId)")

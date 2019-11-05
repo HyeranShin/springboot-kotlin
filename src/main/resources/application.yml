@@ -12,8 +12,10 @@ spring:
     open-in-view: false
     hibernate:
       ddl-auto: update
-      # create는 DB 테이블이 없으면 알아서 만들어줌 → 최초에만 쓰거나 개발 환경에서만 사용
-      # 운영 환경에서는 데이터가 다 날아갈 수 있기 때문에 validate로 검증만
+      # create - 스키마를 생성한다. 스키마에 이미 존재하는 데이터는 손실된다.
+      # update - 스키마를 주어진 값으로 갱신한다.
+      # validate - 스키마의 유효성을 검사한다. DB에 변화가 없다.
+      # created-drop - 이전에 존재한 데이터를 삭제하여 스키마를 생성한다. 또한, SessionFactory가 닫힐 때 데이터베이스 스키마를 삭제한다.
     properties:
       hibernate:
         format_sql: true  # 성능 저하를 일으키므로 운영 환경에서는 쓰지 않음

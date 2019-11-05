@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/likes")
 class LikeController(val likeService: LikeService) {
 
-    @PostMapping("")
+    @PostMapping
     fun requestLike(@RequestBody reqLikeDto: ReqLikeDto): ResponseEntity<String> {
         val likeType = likeService.requestLike(reqLikeDto)
         return ResponseEntity.status(HttpStatus.CREATED).body("$likeType 요청 성공")
     }
 
-    @DeleteMapping("/{postId}/{userId}")
+    @DeleteMapping("/posts/{postId}/likes/users/{userId}")
     fun cancelLike(@PathVariable userId: Long, @PathVariable postId: Long): ResponseEntity<String> {
         val likeType = likeService.cancelLike(userId, postId)
         return ResponseEntity.status(HttpStatus.CREATED).body("$likeType 취소 성공")

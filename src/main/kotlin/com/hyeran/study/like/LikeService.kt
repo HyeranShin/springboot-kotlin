@@ -13,10 +13,9 @@ class LikeService(val likeRepository: LikeRepository, val postRepository: PostRe
         val like = likeRepository.save(Like(type = reqLikeDto.type, userId = reqLikeDto.userId, postId = reqLikeDto.postId))
         val post = postRepository.findById(reqLikeDto.postId)
                 .orElseThrow { RuntimeException() }
-        if(like.type == Type.LIKE) {
+        if (like.type == Type.LIKE) {
             post.increaseLikeCnt()
-        }
-        else {
+        } else {
             post.increaseDislikeCnt()
         }
         return like.type
@@ -28,10 +27,9 @@ class LikeService(val likeRepository: LikeRepository, val postRepository: PostRe
                 .orElseThrow { RuntimeException() }
         val post = postRepository.findById(postId)
                 .orElseThrow { RuntimeException() }
-        if(like.type == Type.LIKE) {
+        if (like.type == Type.LIKE) {
             post.decreaseLikeCnt()
-        }
-        else {
+        } else {
             post.decreaseDislikeCnt()
         }
         likeRepository.delete(like)

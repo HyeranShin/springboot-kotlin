@@ -1,13 +1,21 @@
 package com.hyeran.study.like
 
 import com.hyeran.study.BaseTimeEntity
-import com.hyeran.study.post.Post
-import com.hyeran.study.user.User
 import javax.persistence.*
 
 @Entity
 @Table(name = "likes_hyeran")
-class Like(@Id @GeneratedValue(strategy = GenerationType.IDENTITY) var id: Long? = null,
-           var type: Type,
-           var userId: Long,
-           var postId: Long) : BaseTimeEntity()
+class Like private constructor(id: Long?, type: Type, userId: Long, postId: Long) : BaseTimeEntity() {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    var id: Long? = id
+        private set
+    var type: Type = type
+        private set
+    var userId: Long = userId
+        private set
+    var postId: Long = postId
+        private set
+
+    constructor(type: Type, userId: Long, postId: Long) : this(null, type, userId, postId)
+}
