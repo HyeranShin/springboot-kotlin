@@ -20,7 +20,7 @@ class LikeService(val likeRepository: LikeRepository, val postRepository: PostRe
 
         if (like.isLike()) {
             post.increaseLikeCnt()
-        } else if (like.isDislike()) {
+        } else {
             post.increaseDislikeCnt()
         }
 
@@ -36,7 +36,7 @@ class LikeService(val likeRepository: LikeRepository, val postRepository: PostRe
 
         if (like.isLike()) {
             post.decreaseLikeCnt()
-        } else if (like.isDislike()) {
+        } else {
             post.decreaseDislikeCnt()
         }
 
