@@ -1,6 +1,6 @@
 package com.hyeran.study.post.dto
 
-data class ResAllPostsDto(
+data class ResPostsDto(
         val id: Long,
         val title: String,
         val content: String,
