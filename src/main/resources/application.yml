@@ -4,6 +4,8 @@ spring:
     username: ${USER_NAME}
     password: ${USER_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      max-lifetime: 420000
 
   jpa:
     database-platform: org.hibernate.dialect.MySQL5Dialect  # DB 방언을 JPA가 알아서 처리할 수 있도록
