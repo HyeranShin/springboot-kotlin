@@ -1,5 +1,7 @@
 package com.hyeran.study.post.service
 
+import com.hyeran.study.comment.domain.CommentRepository
+import com.hyeran.study.like.domain.LikeRepository
 import com.hyeran.study.post.dto.ReqWriteDto
 import com.hyeran.study.post.dto.ResAllPostsDto
 import com.hyeran.study.post.domain.Post
@@ -10,7 +12,8 @@ import java.lang.RuntimeException
 import java.util.stream.Collectors
 
 @Service
-class PostService(val postRepository: PostRepository, val userRepository: UserRepository) {
+class PostService(val postRepository: PostRepository, val userRepository: UserRepository,
+                  val commentRepository: CommentRepository, val likeRepository: LikeRepository) {
 
     fun getAllPosts(): MutableList<ResAllPostsDto>? {
         return postRepository.findAll()
@@ -28,5 +31,21 @@ class PostService(val postRepository: PostRepository, val userRepository: UserRe
 
     fun deletePost(postId: Long) {
         postRepository.deleteById(postId)
+        deleteRelatedComments(postId)
+        deleteRelatedLikes(postId)
+    }
+
+    fun deleteRelatedComments(postId: Long) {
+        val comments = commentRepository.findAllByPostId(postId)
+        for(comment in comments) {
+            commentRepository.delete(comment)
+        }
+    }
+
+    fun deleteRelatedLikes(postId: Long) {
+        val likes = likeRepository.findAllByPostId(postId)
+        for(like in likes) {
+            likeRepository.delete(like)
+        }
     }
 }
