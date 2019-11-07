@@ -1,7 +1,7 @@
 package com.hyeran.study.like.service
 
 import com.hyeran.study.like.dto.ReqLikeDto
-import com.hyeran.study.like.domain.Type
+import com.hyeran.study.like.domain.LikeType
 import com.hyeran.study.like.domain.Like
 import com.hyeran.study.like.domain.LikeRepository
 import com.hyeran.study.post.domain.PostRepository
@@ -13,8 +13,8 @@ import javax.transaction.Transactional
 class LikeService(val likeRepository: LikeRepository, val postRepository: PostRepository) {
 
     @Transactional
-    fun requestLike(reqLikeDto: ReqLikeDto): Type {
-        val like = likeRepository.save(Like(type = reqLikeDto.type, userId = reqLikeDto.userId, postId = reqLikeDto.postId))
+    fun requestLike(reqLikeDto: ReqLikeDto): LikeType {
+        val like = likeRepository.save(Like(likeType = reqLikeDto.likeType, userId = reqLikeDto.userId, postId = reqLikeDto.postId))
         val post = postRepository.findById(reqLikeDto.postId)
                 .orElseThrow { RuntimeException() }
 
@@ -24,11 +24,11 @@ class LikeService(val likeRepository: LikeRepository, val postRepository: PostRe
             post.increaseDislikeCnt()
         }
 
-        return like.type
+        return like.likeType
     }
 
     @Transactional
-    fun cancelLike(userId: Long, postId: Long): Type {
+    fun cancelLike(userId: Long, postId: Long): LikeType {
         val like = likeRepository.findByUserIdAndPostId(userId, postId)
                 .orElseThrow { RuntimeException() }
         val post = postRepository.findById(postId)
@@ -41,6 +41,6 @@ class LikeService(val likeRepository: LikeRepository, val postRepository: PostRe
         }
 
         likeRepository.delete(like)
-        return like.type
+        return like.likeType
     }
 }

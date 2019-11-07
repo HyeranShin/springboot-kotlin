@@ -2,6 +2,7 @@ package com.hyeran.study.post.controller
 
 import com.hyeran.study.post.service.PostService
 import com.hyeran.study.post.dto.ReqWriteDto
+import com.hyeran.study.post.dto.ResPostsDetailDto
 import com.hyeran.study.post.dto.ResPostsDto
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -15,7 +16,13 @@ class PostController(val postService: PostService) {
         return ResponseEntity.status(HttpStatus.OK).body(postService.getAllPosts())
     }
 
-    @GetMapping("/users/{userId}/posts/paging")
+    @GetMapping("/users/{userId}/posts/detail/paging")
+    fun get10PostsDetail(@PathVariable userId: Long,
+                         @RequestParam page: Int): ResponseEntity<MutableList<ResPostsDetailDto>> {
+        return ResponseEntity.status(HttpStatus.OK).body(postService.get10PostsDetail(userId, page))
+    }
+
+    @GetMapping("/users/{userId}/my-posts/paging")
     fun getMy10Posts(@PathVariable userId: Long,
                      @RequestParam page: Int): ResponseEntity<MutableList<ResPostsDto>> {
         return ResponseEntity.status(HttpStatus.OK).body(postService.getMy10Posts(userId, page))

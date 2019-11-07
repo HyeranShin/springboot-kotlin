@@ -1,6 +1,6 @@
 package com.hyeran.study.like.domain
 
-enum class Type {
+enum class LikeType {
     LIKE {
         override fun isLike() = true
     },

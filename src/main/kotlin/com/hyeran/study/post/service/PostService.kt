@@ -1,15 +1,18 @@
 package com.hyeran.study.post.service
 
+import com.hyeran.study.comment.domain.Comment
 import com.hyeran.study.comment.domain.CommentRepository
 import com.hyeran.study.like.domain.LikeRepository
+import com.hyeran.study.like.domain.LikeType
 import com.hyeran.study.post.dto.ReqWriteDto
 import com.hyeran.study.post.dto.ResPostsDto
 import com.hyeran.study.post.domain.Post
 import com.hyeran.study.post.domain.PostRepository
+import com.hyeran.study.post.dto.ResPostsDetailCommentsDto
+import com.hyeran.study.post.dto.ResPostsDetailDto
 import com.hyeran.study.user.domain.UserRepository
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
-import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Service
 import java.lang.RuntimeException
 import java.util.stream.Collectors
@@ -22,6 +25,32 @@ class PostService(val postRepository: PostRepository, val userRepository: UserRe
         return postRepository.findAll()
                 .stream()
                 .map { post: Post -> ResPostsDto(post.id!!, post.title, post.content, post.writer, post.likeCnt, post.dislikeCnt) }
+                .collect(Collectors.toList())
+    }
+
+    fun get10PostsDetail(userId: Long, page: Int): MutableList<ResPostsDetailDto>? {
+        val pageable: Pageable = PageRequest.of(page, 10)
+        return postRepository.findAll(pageable)
+                .stream()
+                .map { post: Post -> ResPostsDetailDto(post.id!!, post.title, post.content, post.writer, post.likeCnt, post.dislikeCnt,
+                        checkMyLike(userId, post.id!!), getComments(post.id!!))}
+                .collect(Collectors.toList())
+    }
+
+    fun checkMyLike(userId: Long, postId: Long): LikeType? {
+        if(likeRepository.findByUserIdAndPostId(userId, postId).isPresent) {
+            return likeRepository.findByUserIdAndPostId(userId, postId)
+                    .orElseThrow { RuntimeException() }
+                    .likeType
+        }
+        return null
+    }
+
+    fun getComments(postId: Long): MutableList<ResPostsDetailCommentsDto> {
+        val pageable: Pageable = PageRequest.of(0, 5)
+        return commentRepository.findAllByPostId(postId, pageable)
+                .stream()
+                .map { comment: Comment -> ResPostsDetailCommentsDto(comment.writer, comment.content) }
                 .collect(Collectors.toList())
     }
 
