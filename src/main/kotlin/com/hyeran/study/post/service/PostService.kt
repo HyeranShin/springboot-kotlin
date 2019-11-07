@@ -16,6 +16,7 @@ import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import java.lang.RuntimeException
 import java.util.stream.Collectors
+import javax.transaction.Transactional
 
 @Service
 class PostService(val postRepository: PostRepository, val userRepository: UserRepository,
@@ -69,6 +70,7 @@ class PostService(val postRepository: PostRepository, val userRepository: UserRe
         return postRepository.save(post).id!!
     }
 
+    @Transactional
     fun deletePost(postId: Long) {
         postRepository.deleteById(postId)
         deleteRelatedComments(postId)
